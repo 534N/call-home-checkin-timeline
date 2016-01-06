@@ -1,0 +1,92 @@
+<!doctype html>
+
+<html>
+
+  <head>
+    <style>
+      #timeline {
+        fill: #ddd;
+        font-family: 'Roboto',sans-serif;
+      }
+
+      #data-points .check-in-point-shadow {
+        opacity: 1;
+        cursor: pointer;
+      }
+
+      #data-points .check-in-point {
+        opacity: 0;
+        cursor: pointer;
+      }
+      #data-points .check-in-point:hover {
+        opacity: 0.3;
+      }
+
+      .check-in-point-tooltip {
+        font-size: 0.8em;
+      }
+    </style>
+  </head>
+  <body>
+    <div id='timeline' />
+
+    <script type="text/javascript" src='timeline.js'></script>
+    <script src='http://d3js.org/d3.v3.min.js' charset='utf-8'></script>
+    <script type="text/javascript">
+
+      var reasonOptions = ['default', 'restart', 'info'];
+
+      var reasonColorCode = {
+        default: '#0088cc',
+        restart: '#f54',
+        info: '#ffa000'
+      };
+
+      var fakeCheckins = function(count) {
+        var points = [];
+        while(count > 0) {
+          var checkInTime = new Date(`Mon Jan 06 2016 ${Math.floor((Math.random() * 24) + 0)}:${Math.floor((Math.random() * 59) + 0)}:${Math.floor((Math.random() * 59) + 0)} GMT-0500 (EST)`);
+          var obj = {
+            deviceId: `30a34860-b3e8-11e5-b146-fbfc0da4d611`,
+            timestamp: checkInTime.getTime(),
+            checkinTime: checkInTime,
+            reason: reasonOptions[Math.floor((Math.random() * 3) + 0)],
+            id: count
+          }
+          points.push(obj);
+
+          count--;
+        }
+
+        return points;
+      }
+
+      var checkInData = fakeCheckins(20);
+
+      var args = {
+        date: new Date(),
+        width: window.innerWidth,
+        height: 600,
+        margin: {
+          left: 10,
+          right: 10,
+          top: 0,
+          bottom: 0
+        },
+        data: checkInData,
+        reasonColorCode: reasonColorCode,
+        callback: function(data) {
+          /* insert the data into angular directive */
+
+          var angularDirectiveDOM = document.createElement('div');
+
+          return angularDirectiveDOM;
+        }
+      };
+
+      timeline(args);
+
+    </script>
+  </body>
+
+</html>
