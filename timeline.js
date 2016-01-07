@@ -9,6 +9,12 @@ var timeline = function(params) {
   var _innerheight     = _height - params.margin.top - params.margin.bottom;
   var currentOpen = null;
 
+  var detail = document.getElementById('timeline');
+  var detailTextBox = document.createElement('div');
+  detailTextBox.setAttribute('id', 'detail-text');
+  detailTextBox.setAttribute('style', `position: absolute; width: ${_innerwidth}px; height: ${_innerheight}px; left: ${params.margin.left}px;`)
+  detail.appendChild(detailTextBox);
+
   var svg = d3.select('#timeline').append('svg')
     .attr('id', 'timeline-svg')
     .attr('width', _width)
@@ -41,8 +47,6 @@ var timeline = function(params) {
       class: 'main-x-axis small',
     },
   };
-
-
 
   var xAxisFunc =
     d3.svg.axis()
@@ -125,7 +129,7 @@ var timeline = function(params) {
           d3.select(`#check-in-detail-arrow`).transition().duration(300).attr('width', 40).attr('height', 40);
           d3.select(`#circle-${currentOpen}-shadow`).transition().duration(300).attr('r', rHover);
 
-          d3.select(`#check-in-detail`).append(function() { return params.callback(checkin) })
+          detailTextBox.appendChild(params.callback(checkin));
         }
       });
     dataPointGroup.append('text')
