@@ -29,6 +29,17 @@
       .check-in-point-tooltip {
         font-size: 0.8em;
       }
+
+      .nav-button {
+        font-size: 0.8em;
+        fill: #888;
+        cursor: pointer
+      }
+
+      .nav-button:hover {
+        fill: #333;
+      }
+
     </style>
   </head>
   <body>
@@ -49,7 +60,7 @@
       var fakeCheckins = function(count) {
         var points = [];
         while(count > 0) {
-          var checkInTime = new Date(`Tue Jan 07 2016 ${Math.floor((Math.random() * 24) + 0)}:${Math.floor((Math.random() * 59) + 0)}:${Math.floor((Math.random() * 59) + 0)} GMT-0500 (EST)`);
+          var checkInTime = new Date(`Tue Jan 12 2016 ${Math.floor((Math.random() * 24) + 0)}:${Math.floor((Math.random() * 59) + 0)}:${Math.floor((Math.random() * 59) + 0)} GMT-0500 (EST)`);
           var obj = {
             deviceId: `30a34860-b3e8-11e5-b146-fbfc0da4d611`,
             timestamp: checkInTime.getTime(),
@@ -83,6 +94,8 @@
           /* insert the data into angular directive */
 
           var angularDirectiveDOM = document.createElement('div');
+          angularDirectiveDOM.setAttribute('style', 'margin: 1em 3em; background: #fff; padding: 1em;');
+ 
           angularDirectiveDOM.innerHTML = JSON.stringify(data);
           return angularDirectiveDOM;
 
